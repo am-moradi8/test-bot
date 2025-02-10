@@ -6,23 +6,19 @@ from telebot import types
 API_TOKEN = os.environ.get('API_TOKEN')
 bot = telebot.TeleBot(API_TOKEN)
 
-user_info = {
 
-}
 
-glass = {
-    'spring': ['ccna' , 'lpic' , 'django', "icdl"],
-    'summer': ['mcsa' , 'ccnp'],
-    'autumn': ['python' , 'photoshop' , 'C#'],
-    'winter': ['django2' , 'python' ' net +'],
-}
+# glass = {
+#     'spring': ['ccna' , 'lpic' , 'django', "icdl"],
+#     'summer': ['mcsa' , 'ccnp'],
+#     'autumn': ['python' , 'photoshop' , 'C#'],
+#     'winter': ['django2' , 'python' ' net +'],
+# }
 
 list_butten = ['Back']
-
-user_info ={
-
+user = {
+    
 }
-
 @bot.message_handler(commands=['start'])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True , row_width=3)
@@ -73,6 +69,7 @@ def Summer(message):
     a2 = types.InlineKeyboardButton('python' , callback_data='btn1')
 
     markup.add(a1 , a2)
+
     bot.reply_to(message , 'متن دلخواه' , reply_markup=markup)
 
 def Autumn(message):
@@ -96,18 +93,18 @@ def Winter(message):
 def Name(call):
     message = call.message
     bot.reply_to(message , 'نام خود را وارد کنید')
-    user_info['course'] = message
+    user['course'] = message
     bot.register_next_step_handler(message , phone) 
 def phone(message):
     bot.reply_to(message , 'شماره خود را وارد کنید')
-    user_info['name'] = message
+    user['name'] = message
     bot.register_next_step_handler(message , finish)
 def finish(message):
     bot.reply_to(message , 'ثبت نام شما انجام شد')
-    user_info['phone'] = message
+    user['phone'] = message
     with open("./info.txt" , "a") as file:
-        for key in user_info:
-            file.write(str(user_info[key]))
+        for key in user:
+            file.write(str(user[key]))
 
 
 
